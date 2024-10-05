@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>واجهة تفاعلية بنظام النقاط</title>
+    <style>
+        /* إعدادات خلفية الصفحة */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #0F0C29; /* لون خلفية أساسي */
+            animation: lightPulse 6s ease-in-out infinite; /* تأثير تلاشي الضوء */
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* تأثير تلاشي الضوء */
+        @keyframes lightPulse {
+            0%, 100% {
+                background: #0F0C29; /* لون خلفية أساسي */
+            }
+            50% {
+                background: linear-gradient(135deg, rgba(255, 59, 48, 0.8), rgba(57, 255, 20, 0.8)); /* تدرج لون نيون */
+            }
+        }
+
+        /* تصميم المربع */
+        .score-box {
+            background-color: rgba(255, 255, 255, 0.1); /* شفافية جميلة */
+            backdrop-filter: blur(10px); /* تأثير ضبابي */
+            border-radius: 20px; /* زوايا مستديرة */
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5); /* تأثير ظل أنيق */
+            padding: 60px;
+            text-align: center;
+            color: #39FF14; /* لون نص نيون */
+        }
+
+        /* تصميم النص داخل المربع */
+        .score-box h1 {
+            font-size: 80px; /* حجم خط أكبر */
+            margin: 0;
+            letter-spacing: 2px; /* تباعد بين الحروف */
+            text-shadow: 0 0 10px rgba(57, 255, 20, 0.8), 0 0 20px rgba(57, 255, 20, 0.5); /* تأثير نص نيون */
+        }
+
+        .score-box p {
+            font-size: 28px; /* حجم خط أكبر للنصوص التوضيحية */
+            margin-top: 10px;
+            font-weight: bold; /* نص عريض */
+            text-transform: uppercase; /* جعل النص بالأحرف الكبيرة */
+            color: white; /* لون النص */
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* تأثير نص نيون */
+        }
+
+        /* زر سحب النقاط */
+        #withdrawButton {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            color: #FFFFFF;
+            background-color: #FF3B30; /* لون الزر */
+            border: none;
+            border-radius: 10px; /* زوايا مستديرة للزر */
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease; /* تأثير عند التحويم */
+        }
+
+        #withdrawButton:hover {
+            background-color: #FF0080; /* لون أغمق عند التحويم */
+            transform: scale(1.05); /* تكبير الزر عند التحويم */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="score-box">
+        <h1 id="score">0</h1>
+        <p>النقاط المحصلة</p>
+        <button id="withdrawButton" onclick="withdrawPoints()">سحب النقاط</button> <!-- زر سحب النقاط -->
+    </div>
+
+    <script>
+        // استرجاع النقاط من Local Storage
+        let score = parseInt(localStorage.getItem('score')) || 0; // إذا لم توجد نقاط، تكون 0
+        document.getElementById('score').innerText = score;
+
+        // تحديث النقاط كل ساعة
+        function updateScore() {
+            score += 7; // زيادة 7 نقاط
+            localStorage.setItem('score', score); // تخزين النقاط في Local Storage
+            document.getElementById('score').innerText = score; // تحديث العرض
+        }
+
+        // زيادة النقاط تلقائيًا كل ساعة
+        setInterval(updateScore, 3600000); // 3600000 مللي ثانية = 1 ساعة
+
+        // دالة سحب النقاط
+        function withdrawPoints() {
+            const telegramLink = "https://t.me/sadhdu"; // رابط حساب تلغرام
+            window.location.href = telegramLink; // الانتقال إلى حساب تلغرام
+        }
+    </script>
+
+</body>
+</html>
